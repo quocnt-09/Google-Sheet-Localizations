@@ -22,7 +22,7 @@ namespace GoogleSheetsToUnity.Editor
         private bool showSecret = false;
 
         [MenuItem("Localization/Build Connection")]
-        static void Open()
+        public static void Open()
         {
             GoogleSheetsToUnityEditorWindow win = GetWindow<GoogleSheetsToUnityEditorWindow>("Localization Build Connection");
             ServicePointManager.ServerCertificateValidationCallback = Validator;
