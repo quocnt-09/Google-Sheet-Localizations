@@ -65,7 +65,7 @@ namespace GoogleSheetsToUnity.Editor
                     {
                         localizedConfig = CreateInstance<LocalizedSetting>();
                         AssetDatabase.CreateAsset(localizedConfig, $"{folderPath}/{assetFile}");
-                        
+
                         config = CreateInstance<GoogleSheetsToUnityConfig>();
                         AssetDatabase.CreateAsset(config, $"{resourcePath}/GSTU_Config.asset");
                     }
@@ -74,10 +74,10 @@ namespace GoogleSheetsToUnity.Editor
                         AssetDatabase.CreateFolder("Assets", "Localizations");
                         AssetDatabase.CreateFolder(folderPath, "Resources");
                         AssetDatabase.CreateFolder(folderPath, "Scripts");
-                        
+
                         localizedConfig = CreateInstance<LocalizedSetting>();
                         AssetDatabase.CreateAsset(localizedConfig, $"{folderPath}/{assetFile}");
-                        
+
                         config = CreateInstance<GoogleSheetsToUnityConfig>();
                         AssetDatabase.CreateAsset(config, $"{resourcePath}/GSTU_Config.asset");
                     }
@@ -98,8 +98,9 @@ namespace GoogleSheetsToUnity.Editor
                 Debug.LogError("Error: no config file");
                 return;
             }
+
             GUILayout.Label("API Config Setting", EditorStyles.boldLabel);
-            
+
             config.CLIENT_ID = EditorGUILayout.TextField("Client ID", config.CLIENT_ID);
 
             GUILayout.BeginHorizontal();
@@ -288,7 +289,7 @@ namespace GoogleSheetsToUnity.Editor
                             if (!text.value.Equals(key))
                             {
                                 ListKey += "\t\t\t" + text.value + ",\n";
-                                process = (int)(targetPer * (count / (float)ListValue.Count));
+                                process = (int) (targetPer * (count / (float) ListValue.Count));
                                 count++;
                                 EditorUtility.DisplayProgressBar("Reading From Google Sheet ", $"Sheet: {sheetName}/{text.value} - {count}/{ListValue.Count}", GetProcess());
                             }
@@ -297,7 +298,7 @@ namespace GoogleSheetsToUnity.Editor
                     else
                     {
                         ListLanguage += "\t\t\t\tcase \"" + key + "\":\n";
-                        ListLanguage += "\t\t\t\t\tfileName = \"'[" + key + "]" + sheetName + "\";\n";
+                        ListLanguage += "\t\t\t\t\tfileName = \"[" + key + "]" + sheetName + "\";\n";
                         ListLanguage += "\t\t\t\t\tbreak;\n\n";
                     }
                 }
@@ -398,3 +399,4 @@ namespace GoogleSheetsToUnity.Editor
         }
     }
 }
+
