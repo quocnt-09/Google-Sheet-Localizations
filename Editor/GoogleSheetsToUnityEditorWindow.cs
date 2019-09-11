@@ -320,13 +320,13 @@ namespace GoogleSheetsToUnity.Editor
 
         string ClassContent(string sheetName)
         {
-            var content = "";
-
-            content += "//Author: Quoc Nguyen\n";
-            content += "//Email: ntq.quoc@gmail.com\n\n";
+            var content = " /* * * * * *\n";
+            content += " * Author: Quoc Nguyen\n";
+            content += " * Email: ntq.quoc@gmail.com\n";
+            content += " * * * * * */\n\n";
 
             content += "using System;\n";
-            content += "using SimpleJSON.Quocnt;\n";
+            content += "using Quocnt.SimpleJSON;\n";
             content += "using UnityEngine;\n\n";
 
             content += "namespace Localization.Extension\n";
