@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Security;
@@ -244,9 +245,11 @@ namespace GoogleSheetsToUnity.Editor
         private void ExportData(GstuSpreadSheet sheet, float targetPer, Action complete)
         {
             var sheetName = sheet.sheetName;
-
             int count = 0;
+            
             //Export Json file
+            var stringValues = new List<string>();
+            int countkey = 0; 
             foreach (var key in sheet.columns.secondaryKeyLink.Keys)
             {
                 if (!key.Equals("key") && !key.Contains("[") && !key.Contains("]"))
@@ -261,13 +264,18 @@ namespace GoogleSheetsToUnity.Editor
                         if (!text.value.Equals(key))
                         {
                             textValue += "\t\t\"" + text.value + "\",\n";
+                            if (countkey == 0)
+                            {
+                                stringValues.Add(text.value);
+                            }
                         }
                     }
 
                     jsonString += textValue;
-
                     jsonString += "\t]" + "\n}";
                     File.WriteAllText(jsonPath, jsonString);
+                    
+                    countkey++;
                 }
             }
 
@@ -288,7 +296,7 @@ namespace GoogleSheetsToUnity.Editor
                         {
                             if (!text.value.Equals(key))
                             {
-                                ListKey += "\t\t\t" + text.value + ",\n";
+                                ListKey += "\t\t\t" + text.value + ",\t\t//" + stringValues[count] + "\n";
                                 process = (int) (targetPer * (count / (float) ListValue.Count));
                                 count++;
                                 EditorUtility.DisplayProgressBar("Reading From Google Sheet ", $"Sheet: {sheetName}/{text.value} - {count}/{ListValue.Count}", GetProcess());
